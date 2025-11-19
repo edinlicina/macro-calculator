@@ -30,7 +30,7 @@ public class MacroCalculatorService {
 
     }
 
-    private double calculateBmr(UserProfileDto profile) {
+    public double calculateBmr(UserProfileDto profile) {
         double weight = profile.getWeight();
         double height = profile.getHeight();
         int age = profile.getAge();
@@ -42,11 +42,11 @@ public class MacroCalculatorService {
         }
     }
 
-    private double calculateTdee(double bmr, String activityLevel) {
+    public double calculateTdee(double bmr, String activityLevel) {
         String level = activityLevel.toUpperCase();
         double factor = switch (level) {
             case "SEDENTARY" -> 1.2;
-            case "LIGHT" -> 1.35;
+            case "LIGHT" -> 1.375;
             case "MODERATE" -> 1.55;
             case "ACTIVE" -> 1.725;
             case "VERY_ACTIVE" -> 1.9;
@@ -55,7 +55,7 @@ public class MacroCalculatorService {
         return bmr * factor;
     }
 
-    private double adjustForGoal(double tdee, String goal) {
+    public double adjustForGoal(double tdee, String goal) {
         String g = goal.toUpperCase();
         return switch (g) {
             case "LOSE" -> tdee - 500;
