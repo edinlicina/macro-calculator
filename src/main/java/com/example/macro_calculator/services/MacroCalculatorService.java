@@ -2,6 +2,9 @@ package com.example.macro_calculator.services;
 
 import com.example.macro_calculator.dtos.MacroResultDto;
 import com.example.macro_calculator.dtos.UserProfileDto;
+import com.example.macro_calculator.enums.ActivityLevel;
+import com.example.macro_calculator.enums.Goal;
+import com.example.macro_calculator.enums.Sex;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -35,32 +38,29 @@ public class MacroCalculatorService {
         double height = profile.getHeight();
         int age = profile.getAge();
 
-        if ("MALE".equalsIgnoreCase(profile.getSex())) {
+        if (profile.getSex()== Sex.MALE) {
             return 10 * weight + 6.25 * height - 5 * age + 5;
         } else {
             return 10 * weight + 6.25 * height - 5 * age - 161;
         }
     }
 
-    public double calculateTdee(double bmr, String activityLevel) {
-        String level = activityLevel.toUpperCase();
+    public double calculateTdee(double bmr, ActivityLevel level) {
         double factor = switch (level) {
-            case "SEDENTARY" -> 1.2;
-            case "LIGHT" -> 1.375;
-            case "MODERATE" -> 1.55;
-            case "ACTIVE" -> 1.725;
-            case "VERY_ACTIVE" -> 1.9;
-            default -> 1.2;
+            case SEDENTARY -> 1.2;
+            case LIGHT -> 1.375;
+            case MODERATE -> 1.55;
+            case ACTIVE -> 1.725;
+            case VERY_ACTIVE -> 1.9;
         };
         return bmr * factor;
     }
 
-    public double adjustForGoal(double tdee, String goal) {
-        String g = goal.toUpperCase();
-        return switch (g) {
-            case "LOSE" -> tdee - 500;
-            case "GAIN" -> tdee + 300;
-            default -> tdee;
+    public double adjustForGoal(double tdee, Goal goal) {
+        return switch (goal) {
+            case LOSE -> tdee - 500;
+            case GAIN -> tdee + 300;
+            case MAINTAIN -> tdee;
         };
     }
 }

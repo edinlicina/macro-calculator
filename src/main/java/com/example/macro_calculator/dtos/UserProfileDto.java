@@ -1,12 +1,25 @@
 package com.example.macro_calculator.dtos;
 
+import com.example.macro_calculator.enums.ActivityLevel;
+import com.example.macro_calculator.enums.Goal;
+import com.example.macro_calculator.enums.Sex;
+import jakarta.validation.constraints.Min;
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+
 public class UserProfileDto {
+    @Min(1)
     private int age;
-    private String sex;
+    @NotNull
+    private Sex sex;
+    @Positive
     private double height;
+    @Positive
     private double weight;
-    private String activityLevel;
-    private String goal;
+    @NotNull
+    private ActivityLevel activityLevel;
+    @NotNull
+    private Goal goal;
 
     public int getAge() {
         return age;
@@ -16,11 +29,11 @@ public class UserProfileDto {
         this.age = age;
     }
 
-    public String getSex() {
+    public Sex getSex() {
         return sex;
     }
 
-    public void setSex(String sex) {
+    public void setSex(Sex sex) {
         this.sex = sex;
     }
 
@@ -40,19 +53,19 @@ public class UserProfileDto {
         this.weight = weight;
     }
 
-    public String getActivityLevel() {
+    public ActivityLevel getActivityLevel() {
         return activityLevel;
     }
 
-    public void setActivityLevel(String activityLevel) {
+    public void setActivityLevel(ActivityLevel activityLevel) {
         this.activityLevel = activityLevel;
     }
 
-    public String getGoal() {
+    public Goal getGoal() {
         return goal;
     }
 
-    public void setGoal(String goal) {
+    public void setGoal(Goal goal) {
         this.goal = goal;
     }
 }

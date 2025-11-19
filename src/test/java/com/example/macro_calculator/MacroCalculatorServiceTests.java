@@ -2,6 +2,9 @@ package com.example.macro_calculator;
 
 import com.example.macro_calculator.dtos.MacroResultDto;
 import com.example.macro_calculator.dtos.UserProfileDto;
+import com.example.macro_calculator.enums.ActivityLevel;
+import com.example.macro_calculator.enums.Goal;
+import com.example.macro_calculator.enums.Sex;
 import com.example.macro_calculator.services.MacroCalculatorService;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -14,7 +17,7 @@ public class MacroCalculatorServiceTests {
     public void shouldCalculateBmrForMaleCorrectly(){
         UserProfileDto profile = new UserProfileDto();
         profile.setAge(24);
-        profile.setSex("MALE");
+        profile.setSex(Sex.MALE);
         profile.setHeight(190);
         profile.setWeight(160);
         double bmr = service.calculateBmr(profile);
@@ -25,14 +28,14 @@ public class MacroCalculatorServiceTests {
     @Test
     public void shouldApplyActivityMultiplierCorrectly(){
         double bmr = 2000;
-        double tdee = service.calculateTdee(bmr,"LIGHT");
+        double tdee = service.calculateTdee(bmr, ActivityLevel.LIGHT);
 
         Assertions.assertEquals(2750, tdee, 0.1);
     }
     @Test
     public void shouldAdjustCaloriesForLoss(){
         double tdee = 3000;
-        double adjustedCalculation = service.adjustForGoal(tdee, "LOSE");
+        double adjustedCalculation = service.adjustForGoal(tdee, Goal.LOSE);
 
         Assertions.assertEquals(2500, adjustedCalculation, 0.1);
     }
@@ -40,11 +43,11 @@ public class MacroCalculatorServiceTests {
     public void shouldCalculateFullMacroResult(){
         UserProfileDto profile = new UserProfileDto();
         profile.setAge(24);
-        profile.setSex("MALE");
+        profile.setSex(Sex.MALE);
         profile.setHeight(190);
         profile.setWeight(160);
-        profile.setActivityLevel("LIGHT");
-        profile.setGoal("LOSE");
+        profile.setActivityLevel(ActivityLevel.LIGHT);
+        profile.setGoal(Goal.LOSE);
 
         MacroResultDto result = service.calculate(profile);
 
@@ -62,11 +65,11 @@ public class MacroCalculatorServiceTests {
     public void shouldCalculateFullMacroResultForFemale(){
         UserProfileDto profile = new UserProfileDto();
         profile.setAge(24);
-        profile.setSex("FEMALE");
+        profile.setSex(Sex.FEMALE);
         profile.setHeight(190);
         profile.setWeight(160);
-        profile.setActivityLevel("LIGHT");
-        profile.setGoal("LOSE");
+        profile.setActivityLevel(ActivityLevel.LIGHT);
+        profile.setGoal(Goal.LOSE);
 
         MacroResultDto result = service.calculate(profile);
 
