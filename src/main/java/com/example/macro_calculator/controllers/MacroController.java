@@ -3,6 +3,7 @@ package com.example.macro_calculator.controllers;
 import com.example.macro_calculator.dtos.MacroResultDto;
 import com.example.macro_calculator.dtos.UserProfileDto;
 import com.example.macro_calculator.services.MacroCalculatorService;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,7 +20,7 @@ public class MacroController {
     }
 
     @PostMapping("/calculate")
-    public MacroResultDto calculate(@RequestBody UserProfileDto profile){
+    public MacroResultDto calculate(@RequestBody @Valid UserProfileDto profile){
         return macroCalculatorService.calculate(profile);
     }
 
